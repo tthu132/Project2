@@ -1,120 +1,155 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { notification } from "antd";
 import { useAuth } from "@/context/AuthContext";
-
 import { request } from "@/utils/request";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Snackbar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography, Avatar } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Alert from '@mui/material/Alert';
 
 const LoginPage = () => {
-
   const { saveToken } = useAuth();
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ username: false, password: false });
+  const [alert, setAlert] = useState({ type: '', message: '', open: false });
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newErrors = { username: !username, password: !password };
+    setErrors(newErrors);
+    if (!username || !password) {
+      return;
+    }
 
-
-  const onFinish = async (values) => {
-    console.log('Success:', values);
     try {
-      const response = await request.post("/login", values);
+      const response = await request.post("/login", { username, password });
       const { token } = response.data;
       saveToken(token);
-      notification.success({ message: "Login success!" });
+      setAlert({ type: 'success', message: 'Login success!', open: true });
+      setTimeout(() => {
+        setAlert((prev) => ({ ...prev, open: false }));
+        navigate("/");
+      }, 3000); // Close the alert after 3 seconds and navigate
+      alert("Login success!");
       navigate("/");
     } catch (error) {
-      notification.error({ message: "Đăng nhập không thành công!" });
+      setAlert({ type: 'error', message: 'Login unsuccess!', open: true });
+      setTimeout(() => setAlert((prev) => ({ ...prev, open: false })), 3000); // Close the alert after 3 seconds
+      alert("Login unsuccess!");
     }
+  }
+  const handleClose = () => {
+    setAlert((prev) => ({ ...prev, open: false }));
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+
   return (
-    <div className="">
-      <div
+    <Container component="main" maxWidth="xs"
+      sx={{
+        padding: '40px 20px',
+        boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+        borderRadius: '12px',
+        backgroundColor: 'white'
+      }}
+    >
+      <CssBaseline />
+      <Box
+        sx={{
 
-        className="form-container mx-auto mt-16 w-96 max-w-lg rounded-xl bg-white px-8 py-10 shadow-lg"
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
-        <h2 className="mb-4 text-center text-2xl font-bold text-blue-500">
+
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5"
+          sx={{
+            fontWeight: '700',
+          }}
+        >
           Login
-        </h2>
-
-        <div className="w-50 mb-4 rounded-md border border-gray-300 bg-gray-100 px-8 pb-8 pt-6">
-
-          <Form
-            name="basic"
-            labelCol={{
-              span: 8,
+        </Typography>
+        <Snackbar
+          open={alert.open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          autoHideDuration={3000}
+        >
+          <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
+            {alert.message}
+          </Alert>
+        </Snackbar>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            onClick={() => {
+              setErrors({
+                username: false,
+                password: false
+              })
             }}
-            wrapperCol={{
-              span: 16,
+            error={errors.username}
+            helperText={errors.username && "Enter username."}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onClick={() => {
+              setErrors({
+                username: false,
+                password: false
+              })
             }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
+            error={errors.password}
+            helperText={errors.password && "Enter password."}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <Form.Item
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-        <div className="w-50 mb-4 flex flex-col items-center justify-between rounded-md border border-gray-300 px-8 pb-8 pt-6">
-          <span>Haven't created an account yet?</span>
-          <Link to="/register">
-            <span className="font-semibold text-blue-500">Create an account</span>
-          </Link>
-        </div>
-      </div>
-    </div>
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link to="#" variant="body2" >
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to="/register" variant="body2" >
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
