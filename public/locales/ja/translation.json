@@ -1,0 +1,14 @@
+{
+    "Login": "ログイン",
+    "Username": "ユーザー名",
+    "Password": "パスワード",
+    "Enter username": "ユーザー名を入力してください",
+    "Enter password": "パスワードを入力してください",
+    "Remember me": "ログイン状態を保持する",
+    "SIGN IN": "ログイン",
+    "Forgot password?": "パスワードを忘れた場合",
+    "Don't have an account? Sign Up": "アカウントをお持ちではありませんか？サインアップ",
+    "Login success!": "ログイン成功！",
+  "Login unsuccess!": "ログインに失敗しました！"
+  }
+  

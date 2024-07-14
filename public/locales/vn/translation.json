@@ -1,0 +1,13 @@
+ {
+    "Login": "Đăng nhập",
+    "Username":"Tên tài khoản",
+    "Password":"Mật khẩu",
+    "Enter username":"Nhập tên tài khoản",
+    "Enter password":"Nhập mật khẩu",
+    "Remember me":"Nhớ tôi",
+    "Sign In":"ĐĂNG NHẬP",
+    "Forgot password?":"Quên mật khẩu?",
+   "Don't have an account? Sign Up":"Chưa có tài khoản? Đăng ký",
+   "Login success!": "Đăng nhập thành công!",
+  "Login unsuccess!": "Đăng nhập không thành công!"
+}
