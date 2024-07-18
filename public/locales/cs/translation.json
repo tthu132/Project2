@@ -1,0 +1,13 @@
+{
+    "Login": "Přihlášení",
+    "Username":"Jméno",
+    "Password":"Heslo",
+    "Enter username":"Zadejte jméno",
+    "Enter password":"Zadejte heslo",
+    "Remember me":"Remember me",
+    "Sign In":"PŘIHLÁSIT",
+    "Forgot password?":"Zapomenuté heslo?",
+    "Don't have an account? Sign Up":"Nemáte účet? Zaregistrovat",
+    "Login success!": "Přihlášení úspěšné!",
+    "Login unsuccess!": "Přihlášení se nezdařilo!"
+}

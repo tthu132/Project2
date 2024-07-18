@@ -10,6 +10,7 @@ export default function LanguageSelector() {
     const [item, setItem] = React.useState(currentLanguage);
 
     const languages = [
+        { code: 'cs', img: '/images/icons/cs.svg', lang: 'Česky' },
         { code: 'vn', img: '/images/icons/vn.png', lang: 'VietNam' },
         { code: 'en', img: '/images/icons/en.png', lang: 'English' },
         { code: 'ja', img: '/images/icons/ja.png', lang: 'Japan' },

@@ -16,6 +16,14 @@ const UserRoutes = () => (
     <Route element={<PublicLayout />}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route
+        path="/"
+        element={
+          <HomePage>
+
+          </HomePage>
+        }
+      />
     </Route>
 
     <Route element={<ProtectedRoute />}>
@@ -24,14 +32,7 @@ const UserRoutes = () => (
 
         {/* Start Route Home */}
 
-        <Route
-          path="/"
-          element={
-            <HomePage>
 
-            </HomePage>
-          }
-        />
 
       </Route>
     </Route>
