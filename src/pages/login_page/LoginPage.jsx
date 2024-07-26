@@ -8,7 +8,7 @@ import Alert from '@mui/material/Alert';
 
 import { useTranslation } from "react-i18next";
 
-import LanguageSelector from "../../components/language-selector.jsx";
+import LanguageSelector from "../../components/language-selector/LanguageSelector.jsx";
 
 const LoginPage = () => {
 
