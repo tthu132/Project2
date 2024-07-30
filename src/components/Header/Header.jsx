@@ -16,6 +16,13 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
+import DropDownMenu from "../../components/DropdownMenu/DropDownMenu.jsx";
+const testUser = {
+    displayName: 'Thu',
+
+}
+
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -173,7 +180,7 @@ export default function Header() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        MUI
+                        Facebook
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -200,7 +207,7 @@ export default function Header() {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
-                        <IconButton
+                        {/* <IconButton
                             size="large"
                             edge="end"
                             aria-label="account of current user"
@@ -210,19 +217,27 @@ export default function Header() {
                             color="inherit"
                         >
                             <AccountCircle />
-                        </IconButton>
+
+
+                        </IconButton> */}
+                        <DropDownMenu user={testUser} />
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={4} color="error">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
                         <IconButton
                             size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
+                            aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon />
+                            </Badge>
                         </IconButton>
+                        <DropDownMenu user={testUser} />
                     </Box>
                 </Toolbar>
             </AppBar>

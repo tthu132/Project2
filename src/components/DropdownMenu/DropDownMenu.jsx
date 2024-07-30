@@ -27,6 +27,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 
+import Avatar from "@mui/material/Avatar";
 import profileImage from '@/photos/avt.jpg';
 
 import { useNavigate } from 'react-router-dom';
@@ -39,17 +40,22 @@ function DropDownMenu(params) {
 
     const [activeMenu, setActiveMenu] = useState("main");
     const [menuHeight, setMenuHeight] = useState(null);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState();
 
     const menuRef = useRef(null);
 
     //Router (navigace)
     const navigate = useNavigate();
-
     const toggleMenu = () => {
-        setOpen(!open);
+        console.log('menu ', open);
+
+        setOpen(prevOpen => !prevOpen);
+        console.log('1');
     };
 
+    useEffect(() => {
+        console.log('menu ', open);
+    }, [open]);
     const handleClickOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target)) {
             setOpen(false);
@@ -57,6 +63,7 @@ function DropDownMenu(params) {
     };
 
     useEffect(() => {
+        console.log('ouside', open);
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
@@ -184,16 +191,15 @@ function DropDownMenu(params) {
 
     return (
 
-        <div>
-            <div className='dropdown_button' onClick={() => toggleMenu()}>
-                <p>{oUser.displayName}</p>
+        <div ref={menuRef} style={{ backgroundColor: '' }}>
+            <div className='dropdown_button' onClick={toggleMenu}>
 
-                <img alt='' src={profileImage}></img>
+                <Avatar alt="profile Image" src={profileImage} />
             </div>
 
             {/* Dropdown Menu */}
             {open && (
-                <div ref={menuRef} className="dropdown" style={{ height: menuHeight }}>
+                <div className="dropdown" style={{ height: menuHeight, zIndex: 9999999999999 }}>
                     <CSSTransition
                         in={activeMenu === "main"}
                         unmountOnExit
