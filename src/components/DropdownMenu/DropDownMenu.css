@@ -10,6 +10,8 @@ CSS: DropDownMenu
     margin-right: 10px;
     height: 50px;
     user-select: none;
+    display: flex;
+    align-items: center;
 }
 
 .dropdown_button p
@@ -21,7 +23,6 @@ CSS: DropDownMenu
 
 .dropdown_button img
 {
-    margin-top: 5px;
 }
 
 * {
@@ -137,7 +138,7 @@ a {
   overflow: hidden;
   transition: height var(--speed) ease;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 100000;
   color: #232323;
 }
 
@@ -152,6 +153,8 @@ a {
   font-weight: bold;
   width: calc(300px - 2rem);
   margin: 0 1rem;
+  z-index: 100000;
+
 }
 
 .menu-item:hover {
@@ -179,6 +182,8 @@ a {
   margin: 0 1rem;
   font-size: 22px;
   font-weight: 500;
+  z-index: 10000000;
+
 }
 
 .menu_header_icon {
@@ -285,6 +290,9 @@ a {
 
 .menu {
   padding: 1rem 0;
+  z-index: 100000;
+  background-color: white;
+
 }
 
 .menu-primary-enter {
